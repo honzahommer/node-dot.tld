@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const start = new Date();
+
+const { mkdirSync, writeFileSync } = require('fs');
+const { get } = require('https');
+const { dirname, join } = require('path');
+
+const LIST_URL = 'https://publicsuffix.org/list/effective_tld_names.dat';
+const TLDS_FILE = join(__dirname, '../lib/index.json');
+
+const regex = /^(?:[a-z0-9-]{2,}\.){0,}[a-z]{2,}$/gm;
+let m;
+
+const tlds = [];
+
+get(LIST_URL, res => {
+  res.on('data', chunk => {
+    while ((m = regex.exec(chunk.toString())) !== null) {
+      if (m.index === regex.lastIndex) {
+        regex.lastIndex++;
+      }
+
+      m.forEach((match, index) => {
+        if (index === 0 && tlds.includes(match) === false) {
+          tlds.push(match);
+        }
+      });
+    }
+  });
+
+  res.on('end', () => {
+    mkdirSync(dirname(TLDS_FILE), { recursive: true });
+    writeFileSync(TLDS_FILE, JSON.stringify(tlds));
+
+    console.log(`%s tlds writes to %s in %dms`, tlds.length, TLDS_FILE, new Date() - start);
+  });
+}).on('error', err => {
+  console.error(err);
+});

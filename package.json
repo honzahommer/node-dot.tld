@@ -1,0 +1,49 @@
+{
+  "name": "dot.tld",
+  "version": "0.0.0",
+  "description": "List of TLDs, scraped from ICANN",
+  "main": "lib/",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "publish": "git push origin --tags && npm run changelog && git push origin master",
+    "changelog": "github_changelog_generator && git add CHANGELOG.md && git commit -am \"Updating changelog\"",
+    "build": "node bin/build",
+    "lint": "semistandard bin/* lib/* --fix",
+    "mocha": "mocha test/**/*.test.js --opts test/mocha.opts",
+    "pretest": "npm run build",
+    "test": "npm run lint && nyc npm run mocha"
+  },
+  "keywords": [
+    "tld",
+    "tlds",
+    "domain",
+    "icann"
+  ],
+  "repository": "honzahommer/node-dot.tld",
+  "author": "Honza Hommer <honza@homer.cz>",
+  "homepage": "https://github.com/honzahommer/node-dot.tld#README",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
+  "semistandard": {
+    "env": [
+      "mocha"
+    ]
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "husky": "^2.0.0",
+    "mocha": "^6.0.2",
+    "nyc": "^14.0.0",
+    "semistandard": "^13.0.1"
+  }
+}

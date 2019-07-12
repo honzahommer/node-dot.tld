@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- node
+- '8'
+- '10'
+sudo: false
+cache:
+  directories:
+  - node_modules
+deploy:
+  node_js: 8
+  provider: npm
+  skip_cleanup: true
+  email: honza@hommer.cz
+  api_key:
+    secure: e/iP7fClR2x2NzavhTLN0LLubpyR5Pm8r9H0MjQz1VU8r3A4dAZk4aR8SvQcijt+pKD4XPeXfOEnT22UP6KMj/XDXjnPRPVNelZHLfgQAzy+ST4fgMQlyXgqOzVrqye1GFJVltCrk590cPwWFjR4xnScU9eHi6uN2sigIMztFc8eHBaHcQURb3tmXx238DAEqsYybIJ26qZ6A1hC7k0pAY3/yFPigh2VESxnkvo90zL72vk1dhwpzAbQiqWgQ1XIlaGvJ+TAMgf/BZXZIUxC1Oa1WU5AlJ8jtQNdKp+C3vt83Zi7ul7ZgfuYIKfGrmf+qMDMzL9jmR0HD0kgbq0HpLBOtajE3OtyiGbGvUZFKJe5Vsy8g2iSMriYkqo9imIPcf/wQVKXujxI0urQyA5PgEhlF/nKK1L4FppAIrJuaVZqbxcDzGfLBMa5f6O9HMpOUCnfQ9ZW03nCABO+Phb/+auZoKtJzMshe3Mzn/zhYNKRodT7lYv0xJWV/EapKpOx2ukywLsfp6uw3LqyA2PS5/XJH/8KB0d4dZjRWmA7jQ+Qc0IppX0rPjaLRLC1mGFtZAGZ/sTR9ZLhRTQwyn5VqWIiYi9Kx96SThhEYjU1979dTUgokl2FJcUsIW9/WYrjaqr3iFXBWBQBYbjLa0PujNdBa+uPMRoC9r+Ea09+82E=
+  on:
+    tags: true
+    repo: honzahommer/node-dot.tld
